@@ -7,10 +7,3 @@ parameters:
         - app
     scanFiles:
         - bootstrap/app.php
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
-    ignoreErrors:
-        - '#Property .* \$.* has no typehint specified#'
-    excludes_analyse:
-        - storage/*
-        - bootstrap/*
