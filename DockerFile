@@ -1,0 +1,20 @@
+FROM php:8.3-apache
+
+RUN a2enmod rewrite
+RUN apt-get update && apt-get install -y \
+    zip unzip git curl libonig-dev libzip-dev libpng-dev libxml2-dev \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip xml gd
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+WORKDIR /var/www/html
+COPY . .
+RUN composer install --no-dev --optimize-autoloader
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Configurar Apache para servir Laravel correctamente
+RUN echo '<Directory /var/www/html>\n\
+    AllowOverride All\n\
+</Directory>' > /etc/apache2/conf-available/laravel.conf \
+    && a2enconf laravel
+
+EXPOSE 80
