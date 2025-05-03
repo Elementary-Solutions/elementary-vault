@@ -1,0 +1,16 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+    level: 5
+    paths:
+        - app
+    scanFiles:
+        - bootstrap/app.php
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    ignoreErrors:
+        - '#Property .* \$.* has no typehint specified#'
+    excludes_analyse:
+        - storage/*
+        - bootstrap/*
