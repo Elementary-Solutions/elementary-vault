@@ -15,8 +15,9 @@ return new class extends Migration
             $table->tinyIncrements('id');
             $table->unsignedTinyInteger('partner_id');
             $table->string('name', 50);
-            $table->boolean('enabled')->default(false);
-            $table->timestamps();
+            $table->boolean('enabled')->default(false)->index();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->foreign('partner_id')->references('id')->on('provider_partners')->onDelete('cascade');
         });

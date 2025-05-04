@@ -2,6 +2,7 @@
 
 return [
 
+    'api_key'          => env('VAULT_API_KEY'),
     'default_provider' => env('VAULT_PROVIDER_DEFAULT', ''),
 
     'adapters' => [

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('file_types', function (Blueprint $table) {
             $table->unsignedTinyInteger('id')->primary();
             $table->string('name', 25)->unique();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

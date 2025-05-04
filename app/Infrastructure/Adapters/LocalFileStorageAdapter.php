@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure\Adapters;
 
+use App\Domain\Entities\File;
+use App\Domain\Entities\FileUpload;
 use App\Domain\Entities\Provider;
 use App\Domain\Interfaces\FileStorageAdapterInterface;
 use Illuminate\Http\UploadedFile;
@@ -24,9 +26,24 @@ class LocalFileStorageAdapter implements FileStorageAdapterInterface
         $this->filesystem = new Filesystem($adapter);
     }
 
-    public function upload(string $path, mixed $file): string
+    public function upload(FileUpload $file): void
     {
-        return "";
+        $path = trim(($file->storagePath ?? '') . '/' . $file->completeName(), '/');
+        
+        $stream = is_resource($file->content)
+        ? $file->content
+        : fopen('php://temp', 'r+');
+
+        if (!is_resource($file->content)) {
+            fwrite($stream, $file->content);
+            rewind($stream);
+        }
+
+        $this->filesystem->writeStream($path, $stream);
+
+        if (!is_resource($file->content)) {
+            fclose($stream);
+        }
     }
 
     // public function upload(string $path, string $file): string

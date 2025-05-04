@@ -18,6 +18,7 @@ class FileQueryBuilderRepository implements FileRepositoryInterface
             'path' => $file->storagePath,
             'mime_type_id' => $file->mimeTypeId,
             'provider_id' => $file->providerId,
+            'client_id' => $file->clientId,
             'size' => $file->size,
             'created_at' => now(),
             'updated_at' => now(),

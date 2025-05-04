@@ -15,7 +15,8 @@ return new class extends Migration
             $table->tinyIncrements('id');
             $table->string('name')->unique();
             $table->string('url')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

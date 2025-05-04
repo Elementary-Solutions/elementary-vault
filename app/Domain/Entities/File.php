@@ -10,12 +10,7 @@ class File
         public readonly string $storagePath,
         public readonly int $mimeTypeId,
         public readonly int $providerId,
-        public readonly int $size
-    ) {
-    }
-
-    public function uuid(): string
-    {
-        return $this->uuid;
-    }
+        public readonly int $clientId,
+        public readonly int $size,
+    ) {}
 }

@@ -18,11 +18,14 @@ return new class extends Migration
             $table->unsignedInteger('size');
             $table->unsignedSmallInteger('mime_type_id');
             $table->unsignedTinyInteger('provider_id');
-            $table->timestamps();
+            $table->unsignedTinyInteger('client_id');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
 
             $table->foreign('mime_type_id')->references('id')->on('file_mime_types')->onDelete('cascade');
             $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('api_clients')->onDelete('cascade');
         });
     }
 

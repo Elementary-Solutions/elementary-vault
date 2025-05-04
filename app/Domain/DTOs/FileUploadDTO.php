@@ -2,6 +2,7 @@
 
 namespace App\Domain\DTOs;
 
+use App\Domain\Entities\Client;
 use App\Domain\Entities\Provider;
 use finfo;
 use Illuminate\Http\UploadedFile;
@@ -9,11 +10,12 @@ use Illuminate\Http\UploadedFile;
 class FileUploadDTO
 {
     public function __construct(
-        public readonly ?string $filename,
+        public readonly ?string $fileName,
         public readonly string $mimeType,
         /** @var string|resource $content */
         public readonly mixed $content,
         public readonly Provider $provider,
+        public readonly Client $client,
         public readonly ?string $path = null
     ) {
 
@@ -24,8 +26,9 @@ class FileUploadDTO
 
     public static function fromBase64(
         Provider $provider,
+        Client $client,
         string $base64,
-        ?string $filename = null,
+        ?string $fileName = null,
         ?string $path = null
     ): self {
         $content = base64_decode($base64);
@@ -37,25 +40,28 @@ class FileUploadDTO
         $mimeType = self::detectMimeTypeFromString($content);
 
         return new self(
-            filename: $filename,
+            fileName: str_replace(" ", "_", $fileName),
             mimeType: $mimeType,
             content: $content,
             provider: $provider,
+            client: $client,
             path: $path
         );
     }
 
     public static function fromUploadedFile(
         Provider $provider,
+        Client $client,
         UploadedFile $file,
+        ?string $fileName = null,
         ?string $path = null
     ): self {
-
         return new self(
-            filename: $file->getClientOriginalName(),
+            fileName: str_replace(" ", "_", $fileName),
             mimeType: $file->getMimeType() ?? 'unknown',
             content: fopen($file->getRealPath(), 'r'),
             provider: $provider,
+            client: $client,
             path: $path
         );
     }

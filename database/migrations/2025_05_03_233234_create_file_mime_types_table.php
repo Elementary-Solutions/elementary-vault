@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('mime', 80)->unique();
             $table->string('extension', 20)->unique();
             $table->string('description', 120)->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->foreign('type_id')->references('id')->on('file_types')->onDelete('cascade');
         });

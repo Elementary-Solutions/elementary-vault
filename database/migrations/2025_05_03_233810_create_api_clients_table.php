@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('providers', function (Blueprint $table) {
+        Schema::create('api_clients', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->string('name');
-            $table->string('key', 10)->unique();
-            $table->string('description', 150)->nullable();
-            $table->unsignedTinyInteger('adapter_id');
-            $table->string('access_key', 40)->unique();
-            $table->boolean('enabled')->default(true)->index();
+            $table->string('name',25);
+            $table->string('email',40);
+            $table->uuid('key')->unique();
+            $table->string('secret');
+            $table->boolean('active')->default(true)->index();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-
-            $table->foreign('adapter_id')->references('id')->on('provider_adapters')->onDelete('cascade');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('providers');
+        Schema::dropIfExists('api_clients');
     }
 };
