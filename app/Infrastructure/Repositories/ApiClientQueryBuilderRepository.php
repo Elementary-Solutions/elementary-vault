@@ -13,7 +13,7 @@ class ApiClientQueryBuilderRepository implements ApiClientRepositoryInterface
     public function findByApiKey(string $apiKey): ?Client
     {
         $row = DB::table('api_clients')
-            ->select('id','name', 'secret')
+            ->select('id', 'name', 'secret')
             ->where('key', $apiKey)
             ->where('active', 1)
             ->first();

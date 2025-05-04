@@ -15,7 +15,7 @@ class UploadFileController extends Controller
     public function __invoke(Request $request, UploadFileUseCaseInterface $useCase)
     {
         $dto = $this->getDto($request);
-        
+
         if (!$dto) {
             return response()->json(['code' => 1001], 400);
         }

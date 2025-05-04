@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VerifyApiClient
 {
-
     public function __construct(
         protected ApiClientRepositoryInterface $repository
     ) {

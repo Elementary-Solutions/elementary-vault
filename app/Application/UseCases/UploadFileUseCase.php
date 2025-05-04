@@ -29,7 +29,7 @@ class UploadFileUseCase implements UploadFileUseCaseInterface
         }
 
         $adapter = $this->adapterResolver->resolve($dto->provider);
-        
+
         $fileUpload = new FileUpload($mime, $dto->content, "", $dto->fileName);
 
         $adapter->upload($fileUpload);
@@ -44,8 +44,9 @@ class UploadFileUseCase implements UploadFileUseCaseInterface
             size: is_string($dto->content) ? strlen($dto->content) : fstat($dto->content)['size']
         );
 
-        if (!$this->fileRepository->save($file))
+        if (!$this->fileRepository->save($file)) {
             throw new \InvalidArgumentException("MIME type '{$dto->mimeType}' no support.");
+        }
 
         return $file->uuid;
     }

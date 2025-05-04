@@ -10,7 +10,7 @@ class FileUpload
         public readonly MimeType $mime,
         /** @var string|resource $content */
         public readonly mixed $content,
-        public readonly ?string $storagePath = null,    
+        public readonly ?string $storagePath = null,
         ?string $name = null
     ) {
         $this->name = (!$name) ? $this->generateFileName() : $name;
@@ -20,6 +20,7 @@ class FileUpload
     {
         $random = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 6)), 0, 6);
         $timestamp = date('dmYHis');
+
         return"{$random}_{$timestamp}";
     }
 

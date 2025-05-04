@@ -29,7 +29,7 @@ class LocalFileStorageAdapter implements FileStorageAdapterInterface
     public function upload(FileUpload $file): void
     {
         $path = trim(($file->storagePath ?? '') . '/' . $file->completeName(), '/');
-        
+
         $stream = is_resource($file->content)
         ? $file->content
         : fopen('php://temp', 'r+');

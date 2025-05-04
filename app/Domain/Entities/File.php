@@ -12,5 +12,6 @@ class File
         public readonly int $providerId,
         public readonly int $clientId,
         public readonly int $size,
-    ) {}
+    ) {
+    }
 }

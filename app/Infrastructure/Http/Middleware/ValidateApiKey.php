@@ -20,8 +20,9 @@ class ValidateApiKey
 
         $providedKey = $request->header('X-Api-Key');
 
-        if (!$configuredKey || $providedKey !== $configuredKey)
+        if (!$configuredKey || $providedKey !== $configuredKey) {
             throw new UnauthorizedApiKeyException();
+        }
 
         return $next($request);
     }
