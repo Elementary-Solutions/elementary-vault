@@ -11,5 +11,6 @@ class MimeType
         public readonly FileTypeEnum $type,
         public readonly string $mime,
         public readonly string $extension
-    ) {}
+    ) {
+    }
 }

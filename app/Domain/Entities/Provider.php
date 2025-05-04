@@ -12,5 +12,6 @@ class Provider
         public readonly string $accessKey,
         public readonly string $name,
         public readonly AdapterEnum $adapter
-    ) {}
+    ) {
+    }
 }

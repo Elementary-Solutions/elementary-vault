@@ -2,10 +2,10 @@
 
 namespace App\Infrastructure\Repositories;
 
-use Illuminate\Support\Facades\DB;
 use App\Domain\Entities\Provider;
 use App\Domain\Enums\AdapterEnum;
 use App\Domain\Interfaces\ProviderRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class ProviderQueryBuilderRepository implements ProviderRepositoryInterface
 {
@@ -27,6 +27,6 @@ class ProviderQueryBuilderRepository implements ProviderRepositoryInterface
             return null;
         }
 
-        return new Provider($row->id,$row->key, $accessKey, $row->name, AdapterEnum::from($row->adapter_id));
+        return new Provider($row->id, $row->key, $accessKey, $row->name, AdapterEnum::from($row->adapter_id));
     }
 }

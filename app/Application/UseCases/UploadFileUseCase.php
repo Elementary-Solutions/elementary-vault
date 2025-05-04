@@ -16,14 +16,16 @@ class UploadFileUseCase implements UploadFileUseCaseInterface
         private readonly FileMimeRepositoryInterface $mimeRepository,
         private readonly FileStorageAdapterResolver $adapterResolver,
         private readonly FileRepositoryInterface $fileRepository
-    ) {}
+    ) {
+    }
 
     public function __invoke(FileUploadDTO $dto): string
     {
         $mime = $this->mimeRepository->findByMime($dto->mimeType);
 
-        if (!$mime)
+        if (!$mime) {
             throw new \InvalidArgumentException("MIME type '{$dto->mimeType}' no support.");
+        }
 
         $adapter = $this->adapterResolver->resolve($dto->provider);
 
@@ -37,10 +39,11 @@ class UploadFileUseCase implements UploadFileUseCaseInterface
             providerId: $dto->provider->id,
             size: is_string($dto->content) ? strlen($dto->content) : fstat($dto->content)['size']
         );
-        
 
-        if(!$this->fileRepository->save($file))
+
+        if (!$this->fileRepository->save($file)) {
             throw new \InvalidArgumentException("MIME type '{$dto->mimeType}' no support.");
+        }
 
         return $file->uuid;
     }

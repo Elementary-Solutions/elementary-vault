@@ -4,9 +4,9 @@ namespace App\Infrastructure\Adapters;
 
 use App\Domain\Entities\Provider;
 use App\Domain\Interfaces\FileStorageAdapterInterface;
+use Illuminate\Http\UploadedFile;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Local\LocalFilesystemAdapter;
-use Illuminate\Http\UploadedFile;
 
 class LocalFileStorageAdapter implements FileStorageAdapterInterface
 {

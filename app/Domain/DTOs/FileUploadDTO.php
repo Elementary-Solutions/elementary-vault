@@ -3,8 +3,8 @@
 namespace App\Domain\DTOs;
 
 use App\Domain\Entities\Provider;
-use Illuminate\Http\UploadedFile;
 use finfo;
+use Illuminate\Http\UploadedFile;
 
 class FileUploadDTO
 {
@@ -27,8 +27,7 @@ class FileUploadDTO
         string $base64,
         ?string $filename = null,
         ?string $path = null
-    ): self 
-    {
+    ): self {
         $content = base64_decode($base64);
 
         if ($content === false) {
@@ -50,8 +49,7 @@ class FileUploadDTO
         Provider $provider,
         UploadedFile $file,
         ?string $path = null
-    ): self 
-    {
+    ): self {
 
         return new self(
             filename: $file->getClientOriginalName(),
@@ -66,6 +64,7 @@ class FileUploadDTO
     private static function detectMimeTypeFromString(string $content): string
     {
         $finfo = new finfo(FILEINFO_MIME_TYPE);
+
         return $finfo->buffer($content) ?: 'unknown';
     }
 

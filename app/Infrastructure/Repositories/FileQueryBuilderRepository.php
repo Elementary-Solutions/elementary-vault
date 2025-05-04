@@ -4,13 +4,12 @@ namespace App\Infrastructure\Repositories;
 
 use App\Domain\Entities\File;
 use App\Domain\Entities\MimeType;
-use Illuminate\Support\Facades\DB;
 use App\Domain\Interfaces\FileRepositoryInterface;
 use FileTypeEnum;
+use Illuminate\Support\Facades\DB;
 
 class FileQueryBuilderRepository implements FileRepositoryInterface
 {
-   
     public function save(File $file): bool
     {
         return DB::table('files')->insert([

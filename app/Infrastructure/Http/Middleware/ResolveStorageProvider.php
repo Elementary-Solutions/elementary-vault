@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResolveStorageProvider
 {
-
     public function __construct(
         protected ProviderRepositoryInterface $repository
-    ) {}
+    ) {
+    }
 
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class ResolveStorageProvider
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $providerAccessKey = $request->hasHeader('X-Storage-Provider') ? $request->header('X-Storage-Provider') : env('VAULT_PROVIDER_DEFAULT');
+        $providerAccessKey = $request->hasHeader('X-Storage-Provider') ? $request->header('X-Storage-Provider') : config('vault.default_provider');
 
         if (!$providerAccessKey) {
             return response()->json(['code' => 100], 400);
@@ -33,6 +33,7 @@ class ResolveStorageProvider
             return response()->json(['code' => 110], 400);
         }
         $request->attributes->set('provider', $provider);
+
         return $next($request);
     }
 }

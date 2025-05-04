@@ -11,7 +11,8 @@ class File
         public readonly int $mimeTypeId,
         public readonly int $providerId,
         public readonly int $size
-    ) {}
+    ) {
+    }
 
     public function uuid(): string
     {

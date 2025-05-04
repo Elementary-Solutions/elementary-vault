@@ -3,19 +3,20 @@
 namespace App\Infrastructure\Http\Controllers;
 
 use App\Application\UseCases\UploadFileUseCase;
-use Illuminate\Http\Request;
 use App\Domain\DTOs\FileUploadDTO;
 use App\Domain\Entities\Provider;
 use App\Domain\Interfaces\UploadFileUseCaseInterface;
+use Illuminate\Http\Request;
 
 class UploadFileController extends Controller
 {
     public function __invoke(Request $request, UploadFileUseCaseInterface $useCase)
     {
-        $dto = $this->getDto($request); 
+        $dto = $this->getDto($request);
 
-        if(!$dto)
+        if (!$dto) {
             return response()->json(['code' => '1001'], 400);
+        }
 
         return response()->json(['resource_id' => $useCase($dto)], 201);
     }
@@ -25,14 +26,12 @@ class UploadFileController extends Controller
         /** @var Provider $provider */
         $provider = $request->attributes->get('provider');
 
-        if($request->isJson())
-        {
+        if ($request->isJson()) {
             return FileUploadDTO::fromBase64(
                 $provider,
                 $request->input('file')
             );
-        } elseif ($request->hasFile('file'))
-        {
+        } elseif ($request->hasFile('file')) {
             return FileUploadDTO::fromUploadedFile(
                 $provider,
                 $request->file('file')

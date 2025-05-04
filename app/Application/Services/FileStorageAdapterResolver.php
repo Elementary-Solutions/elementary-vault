@@ -2,9 +2,9 @@
 
 namespace App\Application\Services;
 
-use App\Domain\Entities\Provider;
-use App\Application\Adapters\FileStorage\S3FileStorageAdapter;
 use App\Application\Adapters\FileStorage\GoogleDriveStorageAdapter;
+use App\Application\Adapters\FileStorage\S3FileStorageAdapter;
+use App\Domain\Entities\Provider;
 use App\Domain\Enums\AdapterEnum;
 use App\Domain\Interfaces\FileStorageAdapterInterface;
 use App\Infrastructure\Adapters\LocalFileStorageAdapter;
