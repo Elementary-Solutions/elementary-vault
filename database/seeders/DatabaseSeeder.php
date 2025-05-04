@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use Database\Seeders\Default\FileMimeTypeSeeder;
+use Database\Seeders\Default\FileTypeSeeder;
+use Database\Seeders\Default\PartnerSeeder;
+use Database\Seeders\Default\ProviderAdapterSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,9 +18,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            PartnerSeeder::class,
+            FileTypeSeeder::class,
+            FileMimeTypeSeeder::class,
+            ProviderAdapterSeeder::class
         ]);
     }
 }
