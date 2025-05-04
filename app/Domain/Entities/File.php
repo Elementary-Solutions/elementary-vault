@@ -12,6 +12,14 @@ class File
         public readonly int $providerId,
         public readonly int $clientId,
         public readonly int $size,
+        public readonly ?string $createdAt = null,
+        public readonly ?string $updatedAt = null,
     ) {
+    }
+
+
+    public function completeStoragePath(): string
+    {
+        return $this->storagePath . $this->name;
     }
 }

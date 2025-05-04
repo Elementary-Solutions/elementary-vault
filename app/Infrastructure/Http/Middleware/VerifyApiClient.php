@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Http\Middleware;
 
-use App\Domain\Interfaces\ApiClientRepositoryInterface;
+use App\Domain\Interfaces\Repositories\ApiClientRepositoryInterface;
 use App\Infrastructure\Exceptions\UnauthorizedApiClientException;
 use Closure;
 use Illuminate\Http\Request;

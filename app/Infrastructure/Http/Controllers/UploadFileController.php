@@ -5,7 +5,7 @@ namespace App\Infrastructure\Http\Controllers;
 use App\Domain\DTOs\FileUploadDTO;
 use App\Domain\Entities\Client;
 use App\Domain\Entities\Provider;
-use App\Domain\Interfaces\UploadFileUseCaseInterface;
+use App\Domain\Interfaces\UseCases\UploadFileUseCaseInterface;
 use App\Infrastructure\Http\Requests\UploadFormFileRequest;
 use App\Infrastructure\Http\Requests\UploadJsonFileRequest;
 use Illuminate\Http\Request;

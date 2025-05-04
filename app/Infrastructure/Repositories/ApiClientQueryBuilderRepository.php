@@ -5,7 +5,7 @@ namespace App\Infrastructure\Repositories;
 use App\Domain\Entities\Client;
 use App\Domain\Entities\Provider;
 use App\Domain\Enums\AdapterEnum;
-use App\Domain\Interfaces\ApiClientRepositoryInterface;
+use App\Domain\Interfaces\Repositories\ApiClientRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 class ApiClientQueryBuilderRepository implements ApiClientRepositoryInterface

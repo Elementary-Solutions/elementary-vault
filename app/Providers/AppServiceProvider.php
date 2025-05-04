@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Application\UseCases\DownloadFileUseCase;
 use App\Application\UseCases\UploadFileUseCase;
-use App\Domain\Interfaces\ApiClientRepositoryInterface;
-use App\Domain\Interfaces\FileMimeRepositoryInterface;
-use App\Domain\Interfaces\FileRepositoryInterface;
-use App\Domain\Interfaces\ProviderRepositoryInterface;
-use App\Domain\Interfaces\UploadFileUseCaseInterface;
+use App\Domain\Interfaces\Repositories\ApiClientRepositoryInterface;
+use App\Domain\Interfaces\Repositories\FileMimeRepositoryInterface;
+use App\Domain\Interfaces\Repositories\FileRepositoryInterface;
+use App\Domain\Interfaces\Repositories\ProviderRepositoryInterface;
+use App\Domain\Interfaces\UseCases\DownloadFileUseCaseInterface;
+use App\Domain\Interfaces\UseCases\UploadFileUseCaseInterface;
 use App\Infrastructure\Repositories\ApiClientQueryBuilderRepository;
 use App\Infrastructure\Repositories\FileMimeQueryBuilderRepository;
 use App\Infrastructure\Repositories\FileQueryBuilderRepository;
@@ -21,11 +23,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+
+        //Casos de uso
+        $this->app->bind(UploadFileUseCaseInterface::class, UploadFileUseCase::class);
+        $this->app->bind(DownloadFileUseCaseInterface::class, DownloadFileUseCase::class);
+
+        //Repositorios
+        $this->app->bind(ApiClientRepositoryInterface::class, ApiClientQueryBuilderRepository::class);
+        $this->app->bind(ApiClientRepositoryInterface::class, ApiClientQueryBuilderRepository::class);
         $this->app->bind(ProviderRepositoryInterface::class, ProviderQueryBuilderRepository::class);
         $this->app->bind(FileMimeRepositoryInterface::class, FileMimeQueryBuilderRepository::class);
         $this->app->bind(FileRepositoryInterface::class, FileQueryBuilderRepository::class);
-        $this->app->bind(UploadFileUseCaseInterface::class, UploadFileUseCase::class);
-        $this->app->bind(ApiClientRepositoryInterface::class, ApiClientQueryBuilderRepository::class);
     }
 
     /**

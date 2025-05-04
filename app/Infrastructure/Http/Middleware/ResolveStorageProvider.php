@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Http\Middleware;
 
-use App\Domain\Interfaces\ProviderRepositoryInterface;
+use App\Domain\Interfaces\Repositories\ProviderRepositoryInterface;
 use App\Infrastructure\Exceptions\NoConfiguredProviderException;
 use App\Infrastructure\Exceptions\UnauthorizedProviderException;
 use Closure;

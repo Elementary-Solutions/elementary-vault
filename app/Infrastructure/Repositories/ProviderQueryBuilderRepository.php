@@ -4,7 +4,7 @@ namespace App\Infrastructure\Repositories;
 
 use App\Domain\Entities\Provider;
 use App\Domain\Enums\AdapterEnum;
-use App\Domain\Interfaces\ProviderRepositoryInterface;
+use App\Domain\Interfaces\Repositories\ProviderRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 class ProviderQueryBuilderRepository implements ProviderRepositoryInterface

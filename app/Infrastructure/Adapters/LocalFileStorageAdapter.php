@@ -46,23 +46,25 @@ class LocalFileStorageAdapter implements FileStorageAdapterInterface
         }
     }
 
-    // public function upload(string $path, string $file): string
-    // {
-    //     // $filename = uniqid() . '_' . $file->getClientOriginalName();
-    //     // $stream = fopen($file->getRealPath(), 'r');
-    //     // $this->filesystem->writeStream($path . '/' . $filename, $stream);
-    //     // fclose($stream);
-    //     // return trim($path . '/' . $filename, '/');
-    //     return "";
-    // }
+    public function download(string $path): string
+    {
+        if (! $this->filesystem->fileExists($path)) {
+            throw new \RuntimeException("Archivo no encontrado en: $path");
+        }
 
-    // public function get(string $path): string
-    // {
-    //     return $this->filesystem->read($path);
-    // }
+        $stream = $this->filesystem->readStream($path);
 
-    // public function delete(string $path): bool
-    // {
-    //     return $this->filesystem->delete($path);
-    // }
+        if (!is_resource($stream)) {
+            throw new \RuntimeException("No se pudo leer el archivo: $path");
+        }
+
+        $content = stream_get_contents($stream);
+        fclose($stream);
+
+        if ($content === false) {
+            throw new \RuntimeException("Error al obtener el contenido del archivo: $path");
+        }
+
+        return base64_encode($content);
+    }
 }

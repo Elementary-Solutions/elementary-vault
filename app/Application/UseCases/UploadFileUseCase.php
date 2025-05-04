@@ -6,9 +6,9 @@ use App\Application\Services\FileStorageAdapterResolver;
 use App\Domain\DTOs\FileUploadDTO;
 use App\Domain\Entities\File;
 use App\Domain\Entities\FileUpload;
-use App\Domain\Interfaces\FileMimeRepositoryInterface;
-use App\Domain\Interfaces\FileRepositoryInterface;
-use App\Domain\Interfaces\UploadFileUseCaseInterface;
+use App\Domain\Interfaces\Repositories\FileMimeRepositoryInterface;
+use App\Domain\Interfaces\Repositories\FileRepositoryInterface;
+use App\Domain\Interfaces\UseCases\UploadFileUseCaseInterface;
 use Illuminate\Support\Str;
 
 class UploadFileUseCase implements UploadFileUseCaseInterface
