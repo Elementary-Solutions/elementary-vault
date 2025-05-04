@@ -1,11 +1,51 @@
 <?php
 
-use App\Domain\Interfaces\FileStorageAdapterInterface;
+namespace App\Infrastructure\Adapters;
 
-class LocalFileStorageAdapter implements FileStorageAdapterInterface {
-    
-    public function upload(string $path, mixed $file): string {
-        Storage::disk('local')->put($path, $file);
-        return $path;
+use App\Domain\Entities\Provider;
+use App\Domain\Interfaces\FileStorageAdapterInterface;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
+use Illuminate\Http\UploadedFile;
+
+class LocalFileStorageAdapter implements FileStorageAdapterInterface
+{
+    protected Filesystem $filesystem;
+
+    public function __construct(protected Provider $provider)
+    {
+        $rootPath = env('VAULT_' . strtoupper($provider->key) . '_STORAGE_PATH', storage_path('app/private'));
+
+        if (! $rootPath) {
+            throw new \RuntimeException('Storage path not defined for provider: ' . $provider->key);
+        }
+
+        $adapter = new LocalFilesystemAdapter($rootPath);
+        $this->filesystem = new Filesystem($adapter);
     }
+
+    public function upload(string $path, mixed $file): string
+    {
+        return "";
+    }
+
+    // public function upload(string $path, string $file): string
+    // {
+    //     // $filename = uniqid() . '_' . $file->getClientOriginalName();
+    //     // $stream = fopen($file->getRealPath(), 'r');
+    //     // $this->filesystem->writeStream($path . '/' . $filename, $stream);
+    //     // fclose($stream);
+    //     // return trim($path . '/' . $filename, '/');
+    //     return "";
+    // }
+
+    // public function get(string $path): string
+    // {
+    //     return $this->filesystem->read($path);
+    // }
+
+    // public function delete(string $path): bool
+    // {
+    //     return $this->filesystem->delete($path);
+    // }
 }

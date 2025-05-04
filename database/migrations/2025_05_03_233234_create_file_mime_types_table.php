@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('extension', 20)->unique();
             $table->string('description', 120)->nullable();
             $table->timestamps();
+
+            $table->foreign('type_id')->references('id')->on('file_types')->onDelete('cascade');
         });
     }
 

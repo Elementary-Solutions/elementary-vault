@@ -20,6 +20,9 @@ return new class extends Migration
             $table->unsignedTinyInteger('provider_id');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('mime_type_id')->references('id')->on('file_mime_types')->onDelete('cascade');
+            $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');
         });
     }
 
