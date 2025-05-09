@@ -12,7 +12,7 @@ class UploadFormFileRequest extends FormRequest
     {
         return [
             'file' => ['required', 'file'], // UploadedFile
-            'file_name' => ['nullable', 'string', 'max:50'],
+            'file_name' => ['nullable', 'string', 'max:128000'],
         ];
     }
 

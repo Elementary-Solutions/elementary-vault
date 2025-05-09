@@ -12,7 +12,7 @@ class UploadJsonFileRequest extends FormRequest
     {
         return [
             'file' => ['required', 'string'],
-            'file_name' => ['nullable', 'string', 'max:50'],
+            'file_name' => ['nullable', 'string', 'max:128000'],
         ];
     }
 
