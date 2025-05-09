@@ -103,7 +103,7 @@ class OneDriveFileStorageAdapter implements FileStorageAdapterInterface
             Cache::put('access_token_' . strtolower($this->provider->accessKey), $data['access_token'], now()->addSeconds(3300));
 
             if (isset($data['refresh_token'])) {
-                Cache::put('refresh_token' . strtolower($this->provider->accessKey), $tokens["refresh_token"], now()->addDays(90));
+                Cache::put('refresh_token_' . strtolower($this->provider->accessKey), $tokens["refresh_token"], now()->addDays(90));
             }
 
             return $data['access_token'];
