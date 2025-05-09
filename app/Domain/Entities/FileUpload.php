@@ -13,7 +13,7 @@ class FileUpload
         public readonly ?string $storagePath = null,
         ?string $name = null
     ) {
-        $this->name = (!$name) ? $this->generateFileName() : $name;
+        $this->name = (!$name || strlen($name) > 60) ? $this->generateFileName() : $name;
     }
 
     private function generateFileName(): string
