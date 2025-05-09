@@ -14,7 +14,6 @@ use RuntimeException;
 
 class OneDriveFileStorageAdapter implements FileStorageAdapterInterface
 {
-
     private string $clientId;
     private string $tenantId;
     private string $secret;
@@ -29,9 +28,9 @@ class OneDriveFileStorageAdapter implements FileStorageAdapterInterface
         $this->provider = $provider;
         $this->clientId = env("VAULT_{$this->provider->key}_ONEDRIVE_CLIENT_ID");
         $this->tenantId = env("VAULT_{$this->provider->key}_ONEDRIVE_TENANT_ID");
-        $this->secret   = env("VAULT_{$this->provider->key}_ONEDRIVE_CLIENT_SECRET");
+        $this->secret = env("VAULT_{$this->provider->key}_ONEDRIVE_CLIENT_SECRET");
         $this->folderId = env("VAULT_{$this->provider->key}_ONEDRIVE_FOLDER_ID");
-        $this->driveId  = env("VAULT_{$this->provider->key}_ONEDRIVE_DRIVER_ID");
+        $this->driveId = env("VAULT_{$this->provider->key}_ONEDRIVE_DRIVER_ID");
         $this->redirectUrl = env("VAULT_{$this->provider->key}_ONEDRIVE_REDIRECT_URL");
     }
 
@@ -65,8 +64,9 @@ class OneDriveFileStorageAdapter implements FileStorageAdapterInterface
 
         $idFile = $this->getFileId($path, $accessToken);
 
-        if(!$idFile)
+        if (!$idFile) {
             throw new FileNotFoundInProviderException();
+        }
 
         return $this->downloadFile($idFile, $accessToken);
     }
@@ -82,7 +82,7 @@ class OneDriveFileStorageAdapter implements FileStorageAdapterInterface
 
         $cacheRefreshToken = Cache::get('refresh_token_' . strtolower($this->provider->accessKey));
         if ($cacheRefreshToken) {
-            
+
             $response = Http::asForm()->post('https://login.microsoftonline.com/common/oauth2/v2.0/token', [
                 'client_id' => $this->clientId,
                 'client_secret' => $this->secret,
@@ -91,7 +91,7 @@ class OneDriveFileStorageAdapter implements FileStorageAdapterInterface
                 'redirect_uri' => $this->redirectUrl,
                 'scope' => $this->scope,
             ]);
-            
+
             if (!$response->successful()) {
                 dd("Error renovando token", $response->body());
             }
@@ -147,7 +147,7 @@ class OneDriveFileStorageAdapter implements FileStorageAdapterInterface
         return null;
     }
 
-    function downloadFile(string $fileId, string $accessToken): string
+    public function downloadFile(string $fileId, string $accessToken): string
     {
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$accessToken}",
@@ -155,10 +155,12 @@ class OneDriveFileStorageAdapter implements FileStorageAdapterInterface
 
         if (!$response->successful()) {
             return "Archivo descargado correctamente.";
+
             return "Error al descargar el archivo: " . $response->body();
         }
 
         $fileContent = $response->body();
+
         return base64_encode($fileContent);
     }
 }

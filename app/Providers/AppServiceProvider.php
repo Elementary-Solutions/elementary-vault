@@ -14,10 +14,10 @@ use App\Infrastructure\Repositories\ApiClientQueryBuilderRepository;
 use App\Infrastructure\Repositories\FileMimeQueryBuilderRepository;
 use App\Infrastructure\Repositories\FileQueryBuilderRepository;
 use App\Infrastructure\Repositories\ProviderQueryBuilderRepository;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

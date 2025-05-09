@@ -71,6 +71,7 @@ class GoogleDriveFileStorageAdapter implements FileStorageAdapterInterface
         $response = $this->drive->files->get($fileId, ['alt' => 'media']);
 
         $content = $response->getBody()->getContents();
+
         return base64_encode($content);
     }
 }

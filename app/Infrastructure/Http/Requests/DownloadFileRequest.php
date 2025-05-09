@@ -3,8 +3,8 @@
 namespace App\Infrastructure\Http\Requests;
 
 use App\Infrastructure\Exceptions\InvalidDownloadRequestException;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 
 class DownloadFileRequest extends FormRequest
 {

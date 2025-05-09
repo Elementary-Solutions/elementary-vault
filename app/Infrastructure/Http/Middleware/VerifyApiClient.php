@@ -21,7 +21,7 @@ class VerifyApiClient
         if ($request->is('tinker/*')) {
             return $next($request);
         }
-        
+
         $clientKey = $request->header('X-Client-Key');
 
         if (!$clientKey) {
