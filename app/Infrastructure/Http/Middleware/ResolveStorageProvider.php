@@ -23,6 +23,10 @@ class ResolveStorageProvider
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if ($request->is('tinker/*')) {
+            return $next($request);
+        }
+        
         $providerAccessKey = $request->hasHeader('X-Storage-Provider') ? $request->header('X-Storage-Provider') : config('vault.default_provider');
 
         if (!$providerAccessKey) {

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('providers', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->string('name');
-            $table->string('key', 10)->unique();
+            $table->string('key', 15)->unique();
             $table->string('description', 150)->nullable();
             $table->unsignedTinyInteger('adapter_id');
             $table->string('access_key', 40)->unique();

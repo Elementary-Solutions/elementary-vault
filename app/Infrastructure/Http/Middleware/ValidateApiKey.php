@@ -16,6 +16,10 @@ class ValidateApiKey
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if ($request->is('tinker/*')) {
+            return $next($request);
+        }
+
         $configuredKey = config('vault.api_key');
 
         $providedKey = $request->header('X-Api-Key');

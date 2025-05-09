@@ -1,11 +1,11 @@
 <?php
 
+use App\Infrastructure\Http\Controllers\DownloadFileController;
 use App\Infrastructure\Http\Controllers\UploadFileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// RUTAS DE LA API
 
+Route::get('/files/{uuid}', DownloadFileController::class);
 Route::post('/upload', UploadFileController::class);

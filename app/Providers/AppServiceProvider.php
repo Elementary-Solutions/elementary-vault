@@ -15,6 +15,9 @@ use App\Infrastructure\Repositories\FileMimeQueryBuilderRepository;
 use App\Infrastructure\Repositories\FileQueryBuilderRepository;
 use App\Infrastructure\Repositories\ProviderQueryBuilderRepository;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        RateLimiter::for('vault', function (Request $request) {
+            return Limit::perMinute(40)->by($request->ip());
+        });
     }
 }

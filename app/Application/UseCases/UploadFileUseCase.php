@@ -30,7 +30,7 @@ class UploadFileUseCase implements UploadFileUseCaseInterface
 
         $adapter = $this->adapterResolver->resolve($dto->provider);
 
-        $fileUpload = new FileUpload($mime, $dto->content, "", $dto->fileName);
+        $fileUpload = new FileUpload($mime, $dto->content, $dto->getPath(), $dto->fileName);
 
         $adapter->upload($fileUpload);
 

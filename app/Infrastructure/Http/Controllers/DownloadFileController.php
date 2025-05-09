@@ -3,17 +3,19 @@
 namespace App\Infrastructure\Http\Controllers;
 
 use App\Domain\DTOs\FileDownloadDTO;
-use App\Domain\DTOs\FileUploadDTO;
 use App\Domain\Entities\Client;
 use App\Domain\Entities\Provider;
 use App\Domain\Interfaces\UseCases\DownloadFileUseCaseInterface;
-use App\Infrastructure\Http\Requests\UploadFormFileRequest;
-use App\Infrastructure\Http\Requests\UploadJsonFileRequest;
-use Illuminate\Http\Request;
+use App\Infrastructure\Http\Requests\DownloadFileRequest;
 
 class DownloadFileController extends Controller
 {
-    public function __invoke(Request $request, string $uuid, DownloadFileUseCaseInterface $useCase)
+    /**
+     * @param \App\Infrastructure\Http\Requests\DownloadFileRequest $request
+     * @param string $uuid
+     * @param \App\Domain\Interfaces\DownloadFileUseCaseInterface $useCase
+     */
+    public function __invoke(DownloadFileRequest $request, string $uuid, DownloadFileUseCaseInterface $useCase)
     {
         /** @var Provider $provider */
         $provider = $request->attributes->get('provider');
