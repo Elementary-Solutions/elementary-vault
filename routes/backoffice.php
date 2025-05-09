@@ -20,6 +20,24 @@ Route::get('/onedrive/authorize/{providerKey}', function (string $providerKey) {
     return redirect($authUrl);
 });
 
+
+Route::get('/microsoft/authorize/{providerKey}', function (string $providerKey) {
+    $clientId = env("VAULT_{$providerKey}_ONEDRIVE_CLIENT_ID");
+    $providerKey = strtoupper($providerKey);
+
+    $authUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?" . http_build_query([
+        'client_id' => $clientId,
+        'scope' => 'offline_access Files.ReadWrite',
+        'response_type' => 'code',
+        'redirect_uri' => env("VAULT_{$providerKey}_ONEDRIVE_REDIRECT_URL"),
+        'response_mode' => 'query',
+    ]);
+
+    return response()->json([
+        'url' => $authUrl,
+    ]);
+});
+
 Route::get('/onedrive/callback/{providerKey}', function (Illuminate\Http\Request $request, string $providerKey) {
     $code = $request->get('code');
     $providerKey = strtoupper($providerKey);
