@@ -20,8 +20,7 @@ class FileUpload
     {
         $timestamp = date('dmYHis');
         if (!$name || strlen($name) > 40) {
-            $random = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 6)), 0, 6);
-
+            $random = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 6)), 0, 10);
             return"{$random}_{$timestamp}";
         }
 
