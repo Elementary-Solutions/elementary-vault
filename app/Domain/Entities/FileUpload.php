@@ -19,11 +19,12 @@ class FileUpload
     private function generateFileName(?string $name = null): string
     {
         $timestamp = date('dmYHis');
-        if(!$name || strlen($name) > 40){
+        if (!$name || strlen($name) > 40) {
             $random = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 6)), 0, 6);
+
             return"{$random}_{$timestamp}";
         }
-        
+
         return"{$name}_{$timestamp}";
     }
 
