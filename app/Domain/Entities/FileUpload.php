@@ -13,15 +13,18 @@ class FileUpload
         public readonly ?string $storagePath = null,
         ?string $name = null
     ) {
-        $this->name = (!$name || strlen($name) > 60) ? $this->generateFileName() : $name;
+        $this->name = $this->generateFileName($name);
     }
 
-    private function generateFileName(): string
+    private function generateFileName(?string $name = null): string
     {
-        $random = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 6)), 0, 6);
         $timestamp = date('dmYHis');
-
-        return"{$random}_{$timestamp}";
+        if(!$name || strlen($name) > 40){
+            $random = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 6)), 0, 6);
+            return"{$random}_{$timestamp}";
+        }
+        
+        return"{$name}_{$timestamp}";
     }
 
     public function completeName(): string
