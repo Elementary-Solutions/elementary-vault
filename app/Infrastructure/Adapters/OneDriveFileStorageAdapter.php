@@ -37,8 +37,9 @@ class OneDriveFileStorageAdapter implements FileStorageAdapterInterface
     public function upload(FileUpload $upload): void
     {
         $accessToken = $this->auth();
+        
 
-        $url = "https://graph.microsoft.com/v1.0/me/drive/root:/Boda/{$upload->completeName()}:/content";
+        $url = "https://graph.microsoft.com/v1.0/me/drive/root:/{$upload->completeNameWithStoragePath()}:/content";
         //$url = "https://graph.microsoft.com/v1.0/drives/{$this->driveId}/items/{$this->folderId}:/{$upload->completeName()}:/content";
 
         $response = Http::withToken($accessToken)
