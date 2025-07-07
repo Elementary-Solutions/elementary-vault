@@ -37,13 +37,15 @@ class FileUpload
     {
         $storagePath = $this->storagePath();
 
-        if (str_starts_with($storagePath, '/'))
+        if (str_starts_with($storagePath, '/')) {
             $storagePath = substr($storagePath, 1);
+        }
 
 
-         if (!str_ends_with($storagePath, '/'))
+        if (!str_ends_with($storagePath, '/')) {
             $storagePath .= '/';
-        
+        }
+
         return $storagePath . $this->completeName();
     }
 
