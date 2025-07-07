@@ -39,7 +39,8 @@ class UploadFileController extends Controller
                 $provider,
                 $client,
                 $request->input('file'),
-                $request->input('file_name')
+                $request->input('file_name'),
+                $request->input('file_path')
             );
 
         } elseif ($request->hasFile('file')) {
@@ -50,7 +51,8 @@ class UploadFileController extends Controller
                 $provider,
                 $client,
                 $request->file('file'),
-                $request->input('file_name')
+                $request->input('file_name'),
+                $request->input('file_path')
             );
         }
 
